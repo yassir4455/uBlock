@@ -41,14 +41,19 @@
             phs[i].appendChild(fr);
         }
     };
-    if (
-        document.querySelectorAll('.adsbygoogle').length === 0 &&
-        document.readyState === 'loading'
-    ) {
-        window.addEventListener('DOMContentLoaded', init, { once: true });
-    } else {
+    const bootstrap = ( ) => {
+        if ( document.readyState === 'loading' ) {
+            window.addEventListener('DOMContentLoaded', bootstrap, { once: true });
+            return;
+        }
+        if ( document.querySelectorAll('.adsbygoogle').length === 0 ) {
+            if ( document.readyState === 'interactive' ) {
+                window.addEventListener('load', init, { once: true });
+                return;
+            }
+        }
         init();
-    }
+    };
 })();
 
 /*
